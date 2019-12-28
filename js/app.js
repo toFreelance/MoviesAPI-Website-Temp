@@ -1,7 +1,7 @@
 //js
 
 
-//SIDE NAV BAR/////////////////
+//SIDE NAV BAR//////////////////////////////////
 let navWidth = $(".navMenu").outerWidth(true);
 $("#options-container").css("left", `-${navWidth}px`);
 
@@ -10,16 +10,21 @@ $("#toggleNav").click(function () {
 
     if ($("#options-container").css("left") == "0px") {
         $("#options-container").animate({ left: `-${navWidth}px` }, 500);
-
+        $(".navMenu li").animate({ opacity: "0", marginTop:"500px"}); 
     }
     else {
         $("#options-container").animate({ left: `0px` }, 500);
+        $(".navMenu .li1").animate({ opacity: "1", marginTop: "8px" }, 1200);
+        $(".navMenu .li2").animate({ opacity: "1", marginTop: "8px" }, 1300);
+        $(".navMenu .li3").animate({ opacity: "1", marginTop: "8px" }, 1400);
+        $(".navMenu .li4").animate({ opacity: "1", marginTop: "8px" }, 1500);
+        $(".navMenu .li5").animate({ opacity: "1", marginTop: "8px" }, 1600);
+        $(".navMenu .li6").animate({ opacity: "1", marginTop: "8px" }, 1700);
     }
 })
-//END SIDE NAV BAR/////////////////
+//END SIDE NAV BAR///////////////////////////////////////////////
 
-//VALIDATE DATA /////////////////////////////
-let notValid;
+//VALIDATE DATA ////////////////////////////////////////////////
 function validateName(inputValue) {
     var nameRegex = /^[a-z][a-z ]{1,20}$/i;
     if (nameRegex.test(inputValue) == false) {
@@ -75,12 +80,13 @@ function validateRePw(inputValue) {
     let rePw = $("#rePwInp").val();
     if (pw != rePw) {
         $("#rePwAlert").css("display", "block");
+        return false;
     }
     else {
         $("#rePwAlert").css("display", "none");
+        return true;
     }
 }
-
 
 $("#nameAlert").css("marginTop", `-15px`);
 $("#emailAlert").css("marginTop", `-15px`);
@@ -89,11 +95,34 @@ $("#ageAlert").css("marginTop", `-15px`);
 $("#pwAlert").css("marginTop", `-15px`);
 $("#rePwAlert").css("marginTop", `-15px`);
 
-
 //END VALIDATION////////////////////////////////
 
+// VALIDATE FORM ///////////////////////
+function submit() {
 
+    var userName = document.getElementById("nameInp").value;
+    var email = document.getElementById("emailInp").value;
+    var phone = document.getElementById("phoneInp").value;
+    var age = document.getElementById("ageInp").value;
+    var pw = document.getElementById("pwInp").value;
+    var rePw = document.getElementById("rePwInp").value;
 
+    if (validateName(userName) == true || validateEmail(email) == true || validatePhone(phone) == true || validateAge(age) == true || validatePw(pw)==true || validateRePw(rePw)==true) {
+        
+    }
+    else {
+        //window.alert("Not Valid Input")
+    }
+}
+
+function clearForm() {
+    let ips = $("input");
+    for (let i = 0; i < ips.length; i++) {
+        ips[i].value = "";
+    }
+}
+
+// END VALIDATE FORM ///////////////////////
 
 //GET MOVIES DATA/////////////////
 var allData = [];
@@ -102,20 +131,11 @@ let pathMovie = "now_playing";
 $(".navList .liEle").click(function () {
     pathMovie = $(this).attr('id');
     getData(pathMovie);
-    console.log(pathMovie)
 })
 
 getData(pathMovie);
 
 var links = document.querySelectorAll(".nav-link");
-
-// for (var i = 0; i < links.length; i++) {
-//     links[i].addEventListener("click", function (e) {
-//         category = e.target.text;
-//         getData(category);
-
-//     })
-// }
 
 function getData(pathMovie) {
     // httpReq.open("GET", "https://api.themoviedb.org/3/movie/now_playing?api_key=eba8b9a7199efdcb0ca1f96879b83c44&fbclid=IwAR1Es0Xl_Rp_okaNkNthYUTcOl0gaUmS6B60sbvHb1_zk-ps3j5p85aWKaY")
@@ -181,31 +201,6 @@ function searchMovie(term) {
 }
 
 //END SEARCH MOVIE ////////////////////
-
-// VALIDATE FORM ///////////////////////
-function submit() {
-
-    var userName = document.getElementById("nameInp").value;
-
-
-    if (validateName(userName) == true) {
-
-        // akml b2et l validation 
-    }
-    else {
-        window.alert("Not Valid Input")
-    }
-
-}
-
-function clearForm() {
-    let ips = $("input");
-    for (let i = 0; i < ips.length; i++) {
-        ips[i].value = "";
-    }
-}
-
-// END VALIDATE FORM ///////////////////////
 
 //LOADING SCREEN///////////////////
 $(window).on("load", function () {
